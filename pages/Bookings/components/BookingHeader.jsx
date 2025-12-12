@@ -1,21 +1,13 @@
 import { Ionicons } from '@expo/vector-icons'
 import { Text, TouchableOpacity, View } from 'react-native'
 
-interface BookingHeaderProps {
-	serviceName: string
-	providerId?: string
-	selectedDate?: string
-	selectedTime?: string
-	onBookNow: () => void
-}
-
 export default function BookingHeader({
 	serviceName,
 	providerId,
 	selectedDate,
 	selectedTime,
 	onBookNow,
-}: BookingHeaderProps) {
+}) {
 	return (
 		<View className="bg-white px-4 pt-8 pb-8">
 			{selectedDate && selectedTime && (

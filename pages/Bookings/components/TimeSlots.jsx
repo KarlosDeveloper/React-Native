@@ -1,15 +1,6 @@
-import { DayTimeSlots } from '@/utils/timeSlots'
 import { Ionicons } from '@expo/vector-icons'
 import { useEffect, useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
-
-interface TimeSlotsProps {
-	selectedDay: DayTimeSlots | null
-	selectedSlot: string | null
-	selectedTime: string | null
-	onSelectSlot: (slotId: string, time: string) => void
-	onChangeTime: () => void
-}
 
 export default function TimeSlots({
 	selectedDay,
@@ -17,7 +8,7 @@ export default function TimeSlots({
 	selectedTime,
 	onSelectSlot,
 	onChangeTime,
-}: TimeSlotsProps) {
+}) {
 	const [isExpanded, setIsExpanded] = useState(true)
 
 	useEffect(() => {
@@ -36,7 +27,7 @@ export default function TimeSlots({
 
 	const shouldShowList = isExpanded && !selectedTime
 
-	const handleSlotSelect = (slotId: string, time: string) => {
+	const handleSlotSelect = (slotId, time) => {
 		onSelectSlot(slotId, time)
 		setIsExpanded(false)
 	}

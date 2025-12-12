@@ -1,4 +1,4 @@
-import Bookings from '@/pages/Bookings'
+import Bookings from '@/pages/Bookings/index'
 
 export default function BookingsTab() {
 	return <Bookings />

@@ -4,13 +4,7 @@ import { Animated, Dimensions, Easing, View } from 'react-native'
 
 const { width } = Dimensions.get('window')
 
-interface MapPinProps {
-	delay: number
-	targetX: number
-	targetY: number
-}
-
-function MapPin({ delay, targetX, targetY }: MapPinProps) {
+function MapPin({ delay, targetX, targetY }) {
 	const translateY = useRef(new Animated.Value(-50)).current
 	const translateX = useRef(new Animated.Value(targetX)).current
 	const scale = useRef(new Animated.Value(0.5)).current

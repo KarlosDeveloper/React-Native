@@ -1,17 +1,7 @@
-import { Service } from '@/constants/services'
 import { Ionicons } from '@expo/vector-icons'
 import { Modal, ScrollView, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import DubaiMapWithMoney from './ExampleMap'
-
-interface ConfirmBookingModalProps {
-	visible: boolean
-	service: Service | null
-	date: string | null
-	time: string | null
-	onClose: () => void
-	onConfirm: () => void
-}
 
 export default function ConfirmBookingModal({
 	visible,
@@ -20,7 +10,7 @@ export default function ConfirmBookingModal({
 	time,
 	onClose,
 	onConfirm,
-}: ConfirmBookingModalProps) {
+}) {
 	const insets = useSafeAreaInsets()
 
 	if (!service || !date || !time) {
@@ -31,7 +21,7 @@ export default function ConfirmBookingModal({
 		)
 	}
 
-	const formatDateWithTime = (dateStr: string, timeStr: string) => {
+	const formatDateWithTime = (dateStr, timeStr) => {
 		const date = new Date(dateStr)
 		const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 		return `${months[date.getMonth()]} ${date.getDate()}, ${timeStr} (~1.5 hr)`
@@ -58,7 +48,7 @@ export default function ConfirmBookingModal({
 								<View className="bg-gray-50 rounded-3xl p-5 mb-6">
 									<View className="flex-row items-center mb-4">
 										<View className="w-12 h-12 rounded-full bg-white items-center justify-center mr-4">
-											<Ionicons name={(service.icon as any) || 'construct-outline'} size={24} color="#111827" />
+											<Ionicons name={service.icon || 'construct-outline'} size={24} color="#111827" />
 										</View>
 										<View className="flex-1">
 											<Text className="text-xs font-semibold text-gray-500 uppercase mb-1">SERVICE</Text>

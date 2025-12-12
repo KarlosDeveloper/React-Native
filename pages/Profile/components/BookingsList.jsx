@@ -1,13 +1,8 @@
-import { Booking } from '@/constants/bookings'
 import StatusBadge from '@/pages/Profile/components/StatusBadge'
 import { Ionicons } from '@expo/vector-icons'
 import { Text, View } from 'react-native'
 
-interface BookingsListProps {
-	bookings: Booking[]
-}
-
-function getServiceIcon(serviceName: string): string {
+function getServiceIcon(serviceName) {
 	const nameLower = serviceName.toLowerCase()
 	if (nameLower.includes('massage')) return 'body'
 	if (nameLower.includes('sauna')) return 'flame'
@@ -17,7 +12,7 @@ function getServiceIcon(serviceName: string): string {
 	return 'construct'
 }
 
-export default function BookingsList({ bookings }: BookingsListProps) {
+export default function BookingsList({ bookings }) {
 	return (
 		<View className="bg-white rounded-2xl mx-4 mb-4 shadow-lg">
 			<Text className="text-xl font-bold text-gray-900 px-6 pt-6 pb-4">Bookings</Text>
@@ -37,7 +32,7 @@ export default function BookingsList({ bookings }: BookingsListProps) {
 							<View className="flex-row items-start justify-between">
 								<View className="flex-row items-center flex-1">
 									<View className={`w-10 h-10 rounded-full items-center justify-center mr-3 ${bgColor}`}>
-										<Ionicons name={iconName as any} size={20} color={iconColor} />
+										<Ionicons name={iconName} size={20} color={iconColor} />
 									</View>
 									<View className="flex-1">
 										<Text className="text-gray-500 text-sm mb-1">{booking.date}</Text>

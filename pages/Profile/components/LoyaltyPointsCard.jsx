@@ -1,14 +1,7 @@
-import { Customer } from '@/constants/customer'
-import { LoyaltyPoints } from '@/constants/loyalty'
 import { Ionicons } from '@expo/vector-icons'
 import { useMemo } from 'react'
 import { Text, View } from 'react-native'
 import Svg, { Circle } from 'react-native-svg'
-
-interface LoyaltyPointsCardProps {
-	loyaltyPoints: LoyaltyPoints
-	customer: Customer
-}
 
 const NEXT_REWARD_THRESHOLD = 15000
 const CIRCLE_SIZE = 90
@@ -17,7 +10,7 @@ const CIRCLE_RADIUS = (CIRCLE_SIZE - STROKE_WIDTH) / 2
 const CIRCLE_CENTER = CIRCLE_SIZE / 2
 const CIRCLE_CIRCUMFERENCE = 2 * Math.PI * CIRCLE_RADIUS
 
-export default function LoyaltyPointsCard({ loyaltyPoints, customer }: LoyaltyPointsCardProps) {
+export default function LoyaltyPointsCard({ loyaltyPoints, customer }) {
 	const { progress, pointsToNextReward, strokeDashoffset } = useMemo(() => {
 		const progressValue = Math.min((loyaltyPoints.totalPoints / NEXT_REWARD_THRESHOLD) * 100, 100)
 		const pointsToNext = Math.max(NEXT_REWARD_THRESHOLD - loyaltyPoints.totalPoints, 0)

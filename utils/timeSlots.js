@@ -1,31 +1,19 @@
-export interface TimeSlot {
-	id: string
-	time: string
-	available: boolean
-}
-
-export interface DayTimeSlots {
-	date: string
-	dayName: string
-	slots: TimeSlot[]
-}
-
-function formatTime(hour: number): string {
+function formatTime(hour) {
 	if (hour === 0) return '12:00 AM'
 	if (hour < 12) return `${hour}:00 AM`
 	if (hour === 12) return '12:00 PM'
 	return `${hour - 12}:00 PM`
 }
 
-function formatDateString(date: Date): string {
+function formatDateString(date) {
 	const year = date.getFullYear()
 	const month = String(date.getMonth() + 1).padStart(2, '0')
 	const day = String(date.getDate()).padStart(2, '0')
 	return `${year}-${month}-${day}`
 }
 
-export function generateTimeSlots(): TimeSlot[] {
-	const slots: TimeSlot[] = []
+export function generateTimeSlots() {
+	const slots = []
 	const startHour = 8
 	const endHour = 16
 
@@ -41,8 +29,8 @@ export function generateTimeSlots(): TimeSlot[] {
 	return slots
 }
 
-export function generateDaysWithSlots(daysCount: number = 7): DayTimeSlots[] {
-	const days: DayTimeSlots[] = []
+export function generateDaysWithSlots(daysCount = 7) {
+	const days = []
 	const today = new Date()
 	const dayNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 

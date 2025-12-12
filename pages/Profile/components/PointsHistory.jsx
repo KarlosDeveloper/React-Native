@@ -1,17 +1,12 @@
-import { PointsTransaction } from '@/constants/loyalty'
 import { Ionicons } from '@expo/vector-icons'
 import { Text, TouchableOpacity, View } from 'react-native'
 
-interface PointsHistoryProps {
-	transactions: PointsTransaction[]
-}
-
-function formatPoints(points: number, type: 'earned' | 'spent'): string {
+function formatPoints(points, type) {
 	const sign = type === 'earned' ? '+' : '-'
 	return `${sign}${points.toLocaleString()} pts`
 }
 
-function getServiceIcon(vendor: string): string {
+function getServiceIcon(vendor) {
 	const vendorLower = vendor.toLowerCase()
 	if (vendorLower.includes('massage')) return 'body'
 	if (vendorLower.includes('sauna')) return 'flame'
@@ -21,7 +16,7 @@ function getServiceIcon(vendor: string): string {
 	return 'construct'
 }
 
-export default function PointsHistory({ transactions }: PointsHistoryProps) {
+export default function PointsHistory({ transactions }) {
 	return (
 		<View className="bg-white rounded-2xl mx-4 mb-4 shadow-lg">
 			<Text className="text-xl font-bold text-gray-900 px-6 pt-6 pb-4">History</Text>
@@ -38,7 +33,7 @@ export default function PointsHistory({ transactions }: PointsHistoryProps) {
 							key={transaction.id}
 							className={`flex-row items-center mb-4 pb-4 ${index < transactions.length - 1 ? 'border-b border-gray-100' : ''}`}>
 							<View className={`w-10 h-10 rounded-full items-center justify-center mr-3 ${bgColor}`}>
-								<Ionicons name={iconName as any} size={20} color={isEarned ? '#10b981' : '#ef4444'} />
+								<Ionicons name={iconName} size={20} color={isEarned ? '#10b981' : '#ef4444'} />
 							</View>
 							<View className="flex-1">
 								<Text className="text-gray-900 font-semibold">{transaction.vendor}</Text>

@@ -1,5 +1,5 @@
-import { mockServices, Service } from '@/constants/services'
-import { DayTimeSlots, generateDaysWithSlots, generateTimeSlots } from '@/utils/timeSlots'
+import { mockServices } from '@/constants/services'
+import { generateDaysWithSlots, generateTimeSlots } from '@/utils/timeSlots'
 import { useFocusEffect } from '@react-navigation/native'
 import { useCallback, useState } from 'react'
 import { ScrollView } from 'react-native'
@@ -11,13 +11,13 @@ import ServiceDropdown from './components/ServiceDropdown'
 import TimeSlots from './components/TimeSlots'
 
 export default function Bookings() {
-	const [selectedService, setSelectedService] = useState<Service | null>(null)
-	const [selectedDate, setSelectedDate] = useState<string | null>(null)
-	const [selectedSlot, setSelectedSlot] = useState<string | null>(null)
-	const [selectedTime, setSelectedTime] = useState<string | null>(null)
+	const [selectedService, setSelectedService] = useState(null)
+	const [selectedDate, setSelectedDate] = useState(null)
+	const [selectedSlot, setSelectedSlot] = useState(null)
+	const [selectedTime, setSelectedTime] = useState(null)
 	const [showConfirmModal, setShowConfirmModal] = useState(false)
 
-	const generateDaysUntilEndOfMonth = (): DayTimeSlots[] => {
+	const generateDaysUntilEndOfMonth = () => {
 		const today = new Date()
 		const currentMonth = today.getMonth()
 		const currentYear = today.getFullYear()
@@ -27,7 +27,7 @@ export default function Bookings() {
 		return generateDaysWithSlots(daysCount)
 	}
 
-	const [daysWithSlots, setDaysWithSlots] = useState<DayTimeSlots[]>(() => generateDaysUntilEndOfMonth())
+	const [daysWithSlots, setDaysWithSlots] = useState(() => generateDaysUntilEndOfMonth())
 
 	useFocusEffect(
 		useCallback(() => {
@@ -40,26 +40,26 @@ export default function Bookings() {
 		}, [])
 	)
 
-	const handleSelectService = (service: Service) => {
+	const handleSelectService = service => {
 		setSelectedService(service)
 		setSelectedSlot(null)
 		setSelectedTime(null)
 	}
 
-	const handleSelectDate = (date: string) => {
+	const handleSelectDate = date => {
 		setSelectedDate(date)
 		setSelectedSlot(null)
 		setSelectedTime(null)
 	}
 
-	const formatDateString = (date: Date): string => {
+	const formatDateString = date => {
 		const year = date.getFullYear()
 		const month = String(date.getMonth() + 1).padStart(2, '0')
 		const day = String(date.getDate()).padStart(2, '0')
 		return `${year}-${month}-${day}`
 	}
 
-	const handleDateSelected = (date: Date) => {
+	const handleDateSelected = date => {
 		const dateString = formatDateString(date)
 		const dayNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 		const existingIndex = daysWithSlots.findIndex(day => day.date === dateString)
@@ -70,7 +70,7 @@ export default function Bookings() {
 			const selectedYear = selectedDateObj.getFullYear()
 			const selectedDay = selectedDateObj.getDate()
 			const lastDayOfSelectedMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate()
-			const newDays: DayTimeSlots[] = []
+			const newDays = []
 
 			for (let i = selectedDay; i <= lastDayOfSelectedMonth; i++) {
 				const currentDay = new Date(selectedYear, selectedMonth, i)
@@ -98,7 +98,7 @@ export default function Bookings() {
 		setSelectedTime(null)
 	}
 
-	const handleSelectSlot = (slotId: string, time: string) => {
+	const handleSelectSlot = (slotId, time) => {
 		setSelectedSlot(slotId)
 		setSelectedTime(time)
 	}
@@ -134,7 +134,7 @@ export default function Bookings() {
 
 	const selectedDay = selectedDate ? daysWithSlots.find(day => day.date === selectedDate) || null : null
 
-	const formatDate = (dateString: string) => {
+	const formatDate = dateString => {
 		const date = new Date(dateString)
 		const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 		return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`

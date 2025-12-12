@@ -1,13 +1,8 @@
-import { Customer } from '@/constants/customer'
 import { Image } from 'expo-image'
 import { useMemo } from 'react'
 import { Text, View } from 'react-native'
 
-interface CustomerHeaderProps {
-	customer: Customer
-}
-
-function getInitials(name: string): string {
+function getInitials(name) {
 	return name
 		.split(' ')
 		.map(n => n[0])
@@ -15,7 +10,7 @@ function getInitials(name: string): string {
 		.toUpperCase()
 }
 
-export default function CustomerHeader({ customer }: CustomerHeaderProps) {
+export default function CustomerHeader({ customer }) {
 	const initials = useMemo(() => getInitials(customer.name), [customer.name])
 
 	return (

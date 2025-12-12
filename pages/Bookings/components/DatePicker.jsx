@@ -1,17 +1,9 @@
-import { DayTimeSlots } from '@/utils/timeSlots'
 import { Ionicons } from '@expo/vector-icons'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { useEffect, useRef, useState } from 'react'
 import { Dimensions, Modal, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
-interface DatePickerProps {
-	days: DayTimeSlots[]
-	selectedDate: string | null
-	onSelectDate: (date: string) => void
-	onDateSelected: (date: Date) => void
-}
-
-export default function DatePicker({ days, selectedDate, onSelectDate, onDateSelected }: DatePickerProps) {
+export default function DatePicker({ days, selectedDate, onSelectDate, onDateSelected }) {
 	const getCurrentIndex = () => {
 		if (selectedDate) {
 			const index = days.findIndex(day => day.date === selectedDate)
@@ -23,10 +15,10 @@ export default function DatePicker({ days, selectedDate, onSelectDate, onDateSel
 	const [currentIndex, setCurrentIndex] = useState(getCurrentIndex())
 	const [showDatePicker, setShowDatePicker] = useState(false)
 	const [pickerDate, setPickerDate] = useState(new Date())
-	const scrollViewRef = useRef<ScrollView>(null)
-	const dayPositions = useRef<{ [key: number]: number }>({})
+	const scrollViewRef = useRef(null)
+	const dayPositions = useRef({})
 
-	const scrollToSelectedDay = (index: number) => {
+	const scrollToSelectedDay = index => {
 		const position = dayPositions.current[index]
 		const screenWidth = Dimensions.get('window').width
 		const cardWidth = 85
@@ -58,13 +50,13 @@ export default function DatePicker({ days, selectedDate, onSelectDate, onDateSel
 		}
 	}, [selectedDate, days.length])
 
-	const formatDate = (dateString: string) => {
+	const formatDate = dateString => {
 		const date = new Date(dateString)
 		const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 		return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
 	}
 
-	const formatDateString = (date: Date): string => {
+	const formatDateString = date => {
 		const year = date.getFullYear()
 		const month = String(date.getMonth() + 1).padStart(2, '0')
 		const day = String(date.getDate()).padStart(2, '0')
@@ -93,7 +85,7 @@ export default function DatePicker({ days, selectedDate, onSelectDate, onDateSel
 		setShowDatePicker(true)
 	}
 
-	const handleDateChange = (event: any, selectedDate?: Date) => {
+	const handleDateChange = (event, selectedDate) => {
 		if (Platform.OS === 'android') {
 			setShowDatePicker(false)
 		}
@@ -106,7 +98,7 @@ export default function DatePicker({ days, selectedDate, onSelectDate, onDateSel
 		}
 	}
 
-	const handleDateConfirm = (date: Date) => {
+	const handleDateConfirm = date => {
 		const dateString = formatDateString(date)
 		onDateSelected(date)
 		onSelectDate(dateString)
@@ -128,8 +120,8 @@ export default function DatePicker({ days, selectedDate, onSelectDate, onDateSel
 		return days[currentIndex] || days[0]
 	}
 
-	const getShortDayName = (dayName: string) => {
-		const dayMap: { [key: string]: string } = {
+	const getShortDayName = dayName => {
+		const dayMap = {
 			SUN: 'Sun',
 			MON: 'Mon',
 			TUE: 'Tue',

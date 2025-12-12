@@ -1,26 +1,9 @@
-export interface LoyaltyPoints {
-	totalPoints: number
-	currency: string
-}
-
-export type TransactionType = 'earned' | 'spent'
-
-export interface PointsTransaction {
-	id: string
-	vendor: string
-	date: string
-	time: string
-	points: number
-	type: TransactionType
-	icon?: string
-}
-
-export const mockLoyaltyPoints: LoyaltyPoints = {
+export const mockLoyaltyPoints = {
 	totalPoints: 12000,
 	currency: 'pts',
 }
 
-export const mockPointsHistory: PointsTransaction[] = [
+export const mockPointsHistory = [
 	{
 		id: '1',
 		vendor: 'Massage Service',

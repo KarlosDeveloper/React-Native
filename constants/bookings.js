@@ -1,13 +1,4 @@
-export type BookingStatus = 'Confirmed' | 'Completed' | 'Cancelled'
-
-export interface Booking {
-	id: string
-	date: string
-	serviceName: string
-	status: BookingStatus
-}
-
-export const mockBookings: Booking[] = [
+export const mockBookings = [
 	{
 		id: '1',
 		date: 'April 23, 2024',
