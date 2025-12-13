@@ -1,6 +1,5 @@
 export const mockCustomer = {
 	id: '1',
-	name: 'Karol S.',
-	role: 'Junior Software Engineer',
-	location: 'Katowice',
+	name: 'Khalid',
+	number: '0566558914',
 }

@@ -1,6 +1,7 @@
 export const mockLoyaltyPoints = {
 	totalPoints: 12000,
-	currency: 'pts',
+	servicesUsed: 4,
+	clientsReferred: 0,
 }
 
 export const mockPointsHistory = [
@@ -30,14 +31,6 @@ export const mockPointsHistory = [
 	},
 	{
 		id: '4',
-		vendor: 'Haircut',
-		date: '5 Dec',
-		time: '16:00',
-		points: 200,
-		type: 'earned',
-	},
-	{
-		id: '5',
 		vendor: 'Massage Service',
 		date: '3 Dec',
 		time: '11:15',
@@ -45,15 +38,7 @@ export const mockPointsHistory = [
 		type: 'spent',
 	},
 	{
-		id: '6',
-		vendor: 'Nail Service',
-		date: '1 Dec',
-		time: '15:30',
-		points: 250,
-		type: 'spent',
-	},
-	{
-		id: '7',
+		id: '5',
 		vendor: 'IR Sauna',
 		date: '28 Nov',
 		time: '10:00',
@@ -61,7 +46,7 @@ export const mockPointsHistory = [
 		type: 'earned',
 	},
 	{
-		id: '8',
+		id: '6',
 		vendor: 'Cryo Therapy',
 		date: '25 Nov',
 		time: '14:45',
