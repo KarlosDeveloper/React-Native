@@ -1,7 +1,7 @@
 export const mockServices = [
-	{ id: '1', name: 'Massage', providerId: 'M001', icon: 'body-outline' },
-	{ id: '2', name: 'Cryo Therapy', providerId: 'C001', icon: 'snow-outline' },
-	{ id: '3', name: 'IR Sauna', providerId: 'I001', icon: 'flame-outline' },
+	{ id: '1', name: 'Sports Massage', providerId: 'M001', icon: 'body-outline' },
+	{ id: '2', name: 'Assisted Stretching', providerId: 'C001', icon: 'snow-outline' },
+	{ id: '3', name: 'Floatation Therapy', providerId: 'I001', icon: 'flame-outline' },
 ]
 
 export const mockServicesCarousel = [

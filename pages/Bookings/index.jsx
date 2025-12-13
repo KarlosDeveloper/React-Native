@@ -2,7 +2,7 @@ import { mockServices } from '@/constants/services'
 import { generateDaysWithSlots, generateTimeSlots } from '@/utils/timeSlots'
 import { useFocusEffect } from '@react-navigation/native'
 import { useCallback, useState } from 'react'
-import { ScrollView } from 'react-native'
+import { ScrollView, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import BookingHeader from './components/BookingHeader'
 import ConfirmBookingModal from './components/ConfirmBookingModal'
@@ -31,12 +31,11 @@ export default function Bookings() {
 
 	useFocusEffect(
 		useCallback(() => {
-			return () => {
-				setSelectedService(null)
-				setSelectedDate(null)
-				setSelectedSlot(null)
-				setSelectedTime(null)
-			}
+			setSelectedService(null)
+			setSelectedDate(null)
+			setSelectedSlot(null)
+			setSelectedTime(null)
+			setShowConfirmModal(false)
 		}, [])
 	)
 
@@ -140,27 +139,68 @@ export default function Bookings() {
 		return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
 	}
 
+	const getProgress = () => {
+		let steps = 0
+		if (selectedService) steps++
+		if (selectedDate) steps++
+		if (selectedSlot && selectedTime) steps++
+		return steps
+	}
+
+	const progress = getProgress()
+
 	return (
-		<SafeAreaView className="flex-1 bg-white">
+		<SafeAreaView className="flex-1 bg-gray-50">
+			<View className="bg-white pt-4 pb-3 px-6 border-b border-gray-100">
+				<Text className="text-3xl font-bold text-gray-900 mb-1">Book Appointment</Text>
+				<Text className="text-base text-gray-500">Choose your service, date & time</Text>
+				<View className="mt-6 flex-row items-center">
+					{[1, 2, 3].map((step, index) => {
+						const isCompleted = index < progress
+						const isCurrent = index === progress
+						return (
+							<View key={step} className="flex-row items-center flex-1">
+								<View
+									className={`w-8 h-8 rounded-full items-center justify-center ${
+										isCompleted ? 'bg-green-600' : isCurrent ? 'bg-green-100' : 'bg-gray-200'
+									}`}>
+									{isCompleted ? (
+										<Text className="text-white font-bold text-sm">✓</Text>
+									) : (
+										<Text className={`font-bold text-sm ${isCurrent ? 'text-green-600' : 'text-gray-400'}`}>
+											{step}
+										</Text>
+									)}
+								</View>
+								{index < 2 && <View className={`flex-1 h-1 mx-2 ${isCompleted ? 'bg-green-600' : 'bg-gray-200'}`} />}
+							</View>
+						)
+					})}
+				</View>
+			</View>
 			<ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
 				<ServiceDropdown
 					services={mockServices}
 					selectedService={selectedService}
 					onSelectService={handleSelectService}
 				/>
-				<DatePicker
-					days={daysWithSlots}
-					selectedDate={selectedDate}
-					onSelectDate={handleSelectDate}
-					onDateSelected={handleDateSelected}
-				/>
-				<TimeSlots
-					selectedDay={selectedDay}
-					selectedSlot={selectedSlot}
-					selectedTime={selectedTime}
-					onSelectSlot={handleSelectSlot}
-					onChangeTime={handleChangeTime}
-				/>
+				{selectedService && (
+					<>
+						<DatePicker
+							days={daysWithSlots || []}
+							selectedDate={selectedDate}
+							onSelectDate={handleSelectDate}
+							onDateSelected={handleDateSelected}
+						/>
+						<TimeSlots
+							selectedDay={selectedDay}
+							selectedSlot={selectedSlot}
+							selectedTime={selectedTime}
+							onSelectSlot={handleSelectSlot}
+							onChangeTime={handleChangeTime}
+						/>
+					</>
+				)}
 				<BookingHeader
 					serviceName={selectedService?.name || 'Select Service'}
 					providerId={selectedService?.providerId}
