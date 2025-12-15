@@ -1,7 +1,15 @@
 import { Ionicons } from '@expo/vector-icons'
+import { Image } from 'expo-image'
 import { Text, TouchableOpacity, View } from 'react-native'
 
-export default function BookingHeader({ serviceName, providerId, selectedDate, selectedTime, onBookNow }) {
+export default function BookingHeader({
+	serviceName,
+	providerId,
+	selectedTherapist,
+	selectedDate,
+	selectedTime,
+	onBookNow,
+}) {
 	const isReady = selectedDate && selectedTime && serviceName !== 'Select Service'
 
 	return (
@@ -19,6 +27,21 @@ export default function BookingHeader({ serviceName, providerId, selectedDate, s
 					</View>
 
 					<View className="bg-white/80 rounded-2xl p-4 mb-4">
+						{selectedTherapist && (
+							<View className="flex-row items-center mb-3">
+								<View className="w-10 h-10 rounded-full overflow-hidden border-2 border-green-200 mr-3">
+									<Image
+										source={selectedTherapist.avatar}
+										contentFit="cover"
+										style={{ width: '100%', height: '100%' }}
+									/>
+								</View>
+								<View className="flex-1">
+									<Text className="text-xs font-semibold text-gray-500 uppercase mb-1">Therapist</Text>
+									<Text className="text-base font-bold text-gray-900">{selectedTherapist.name}</Text>
+								</View>
+							</View>
+						)}
 						<View className="flex-row items-center mb-3">
 							<View className="w-10 h-10 rounded-xl bg-green-100 items-center justify-center mr-3">
 								<Ionicons name="construct" size={20} color="#10b981" />

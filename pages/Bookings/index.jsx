@@ -8,9 +8,11 @@ import BookingHeader from './components/BookingHeader'
 import ConfirmBookingModal from './components/ConfirmBookingModal'
 import DatePicker from './components/DatePicker'
 import ServiceDropdown from './components/ServiceDropdown'
+import TherapistCarousel from './components/TherapistCarousel'
 import TimeSlots from './components/TimeSlots'
 
 export default function Bookings() {
+	const [selectedTherapist, setSelectedTherapist] = useState(null)
 	const [selectedService, setSelectedService] = useState(null)
 	const [selectedDate, setSelectedDate] = useState(null)
 	const [selectedSlot, setSelectedSlot] = useState(null)
@@ -31,6 +33,7 @@ export default function Bookings() {
 
 	useFocusEffect(
 		useCallback(() => {
+			setSelectedTherapist(null)
 			setSelectedService(null)
 			setSelectedDate(null)
 			setSelectedSlot(null)
@@ -121,6 +124,7 @@ export default function Bookings() {
 			time: selectedTime,
 		})
 		setShowConfirmModal(false)
+		setSelectedTherapist(null)
 		setSelectedService(null)
 		setSelectedDate(null)
 		setSelectedSlot(null)
@@ -154,12 +158,12 @@ export default function Bookings() {
 			<View className="bg-white pt-4 pb-3 px-6 border-b border-gray-100">
 				<Text className="text-3xl font-bold text-gray-900 mb-1">Book Appointment</Text>
 				<Text className="text-base text-gray-500">Choose your service, date & time</Text>
-				<View className="mt-6 flex-row items-center">
+				<View className="mt-6 flex-row items-center justify-center">
 					{[1, 2, 3].map((step, index) => {
 						const isCompleted = index < progress
 						const isCurrent = index === progress
 						return (
-							<View key={step} className="flex-row items-center flex-1">
+							<View key={step} className="flex-row items-center">
 								<View
 									className={`w-8 h-8 rounded-full items-center justify-center ${
 										isCompleted ? 'bg-green-600' : isCurrent ? 'bg-green-100' : 'bg-gray-200'
@@ -172,13 +176,14 @@ export default function Bookings() {
 										</Text>
 									)}
 								</View>
-								{index < 2 && <View className={`flex-1 h-1 mx-2 ${isCompleted ? 'bg-green-600' : 'bg-gray-200'}`} />}
+								{index < 2 && <View className={`w-12 h-1 mx-2 ${isCompleted ? 'bg-green-600' : 'bg-gray-200'}`} />}
 							</View>
 						)
 					})}
 				</View>
 			</View>
 			<ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
+				<TherapistCarousel selectedTherapist={selectedTherapist} onSelectTherapist={setSelectedTherapist} />
 				<ServiceDropdown
 					services={mockServices}
 					selectedService={selectedService}
@@ -204,6 +209,7 @@ export default function Bookings() {
 				<BookingHeader
 					serviceName={selectedService?.name || 'Select Service'}
 					providerId={selectedService?.providerId}
+					selectedTherapist={selectedTherapist}
 					selectedDate={selectedDate ? formatDate(selectedDate) : undefined}
 					selectedTime={selectedTime || undefined}
 					onBookNow={handleBookNow}
@@ -212,6 +218,7 @@ export default function Bookings() {
 			<ConfirmBookingModal
 				visible={showConfirmModal}
 				service={selectedService}
+				therapist={selectedTherapist}
 				date={selectedDate}
 				time={selectedTime}
 				onClose={handleCloseModal}

@@ -1,8 +1,9 @@
 import { Ionicons } from '@expo/vector-icons'
+import { Image } from 'expo-image'
 import { Modal, ScrollView, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-export default function ConfirmBookingModal({ visible, service, date, time, onClose, onConfirm }) {
+export default function ConfirmBookingModal({ visible, service, therapist, date, time, onClose, onConfirm }) {
 	const insets = useSafeAreaInsets()
 
 	if (!service || !date || !time) {
@@ -33,10 +34,10 @@ export default function ConfirmBookingModal({ visible, service, date, time, onCl
 							borderTopLeftRadius: 32,
 							borderTopRightRadius: 32,
 						}}>
-						<View className="px-6 pt-5 pb-6">
+						<View className="px-6 pt-3">
 							<View className="flex-row items-center justify-between mb-2">
 								<View className="flex-1">
-									<View className="flex-row items-center mb-3">
+									<View className="flex-row items-center">
 										<View
 											className="w-12 h-12 rounded-2xl bg-green-600 items-center justify-center mr-3 shadow-lg"
 											style={{
@@ -72,7 +73,7 @@ export default function ConfirmBookingModal({ visible, service, date, time, onCl
 						<View className="h-px bg-gray-100 mx-6 mb-2" />
 
 						<ScrollView showsVerticalScrollIndicator={false} className="flex-1">
-							<View className="px-6 pt-6 pb-8">
+							<View className="px-6 pt-2 pb-8">
 								<View
 									className="bg-white rounded-3xl p-6 mb-6 border-2 border-green-200 shadow-xl"
 									style={{
@@ -82,12 +83,39 @@ export default function ConfirmBookingModal({ visible, service, date, time, onCl
 										shadowRadius: 16,
 										elevation: 12,
 									}}>
-									<View className="absolute top-0 left-0 right-0 h-1.5 bg-green-600 rounded-t-3xl" />
-
 									<View className="mt-2">
+										{therapist && (
+											<>
+												<View className="flex-row items-start mb-6">
+													<View
+														className="w-16 h-16 rounded-full overflow-hidden border-4 border-green-200 mr-4 shadow-lg"
+														style={{
+															shadowColor: '#10b981',
+															shadowOffset: { width: 0, height: 6 },
+															shadowOpacity: 0.4,
+															shadowRadius: 12,
+															elevation: 10,
+														}}>
+														<Image
+															source={therapist.avatar}
+															contentFit="cover"
+															style={{ width: '100%', height: '100%' }}
+														/>
+													</View>
+													<View className="flex-1 pt-1">
+														<Text className="text-xs font-bold text-green-600 uppercase tracking-wider mb-2">
+															Therapist
+														</Text>
+														<Text className="text-xl font-bold text-gray-900 leading-tight">{therapist.name}</Text>
+													</View>
+												</View>
+												<View className="h-0.5 bg-green-200 mb-6" />
+											</>
+										)}
+
 										<View className="flex-row items-start mb-6">
 											<View
-												className="w-16 h-16 rounded-2xl bg-green-600 items-center justify-center mr-4 shadow-lg"
+												className="w-16 h-16 rounded-2xl border-2 border-green-200 items-center justify-center mr-4 shadow-lg"
 												style={{
 													shadowColor: '#10b981',
 													shadowOffset: { width: 0, height: 6 },
@@ -95,7 +123,7 @@ export default function ConfirmBookingModal({ visible, service, date, time, onCl
 													shadowRadius: 12,
 													elevation: 10,
 												}}>
-												<Ionicons name={service.icon || 'construct'} size={32} color="#ffffff" />
+												<Ionicons name={service.icon || 'construct'} size={32} color="#10b981" />
 											</View>
 											<View className="flex-1 pt-1">
 												<Text className="text-xs font-bold text-green-600 uppercase tracking-wider mb-2">Service</Text>
