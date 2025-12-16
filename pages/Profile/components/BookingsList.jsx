@@ -2,7 +2,7 @@ import StatusBadge from '@/pages/Profile/components/StatusBadge'
 import { Ionicons } from '@expo/vector-icons'
 import { Text, TouchableOpacity, View } from 'react-native'
 
-export default function BookingsList({ bookings }) {
+export default function BookingsList({ bookings, onSeeMorePress }) {
 	const activeCount = bookings.filter(b => b.status === 'Confirmed').length
 	const pastCount = bookings.filter(b => b.status === 'Completed' || b.status === 'Cancelled').length
 
@@ -42,7 +42,7 @@ export default function BookingsList({ bookings }) {
 				})}
 			</View>
 			<View className="px-6 pb-6">
-				<TouchableOpacity className="items-end">
+				<TouchableOpacity className="items-end" onPress={onSeeMorePress}>
 					<Text className="text-blue-600 text-base font-medium">See more</Text>
 				</TouchableOpacity>
 			</View>

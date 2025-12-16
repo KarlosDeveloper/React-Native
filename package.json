@@ -16,6 +16,8 @@
     "@react-navigation/native": "^7.1.8",
     "expo": "~54.0.27",
     "expo-image": "~3.0.11",
+    "expo-video": "~2.1.0",
+    "expo-notifications": "~0.29.9",
     "expo-router": "~6.0.17",
     "expo-splash-screen": "~31.0.12",
     "nativewind": "^4.2.1",
